@@ -3,6 +3,10 @@
 # Overview
 With the vast influx of data over the Covid-19, our team will try and analyze the data to find trends related to the financial support and the Covid-19 rates. We plan to test our hypothesis using publicly available datasets, the scope of this project is within the USA. This will give the team members the opportunity to scrape website data, merge datasets together, and construct meaningful insights from the data.
 
+What data do we want to compare?
+
+There is a lot of the USA to cover, so we think the best way to find insights, would be to compare states. Following this, we are comparing states alongside GDP, population, and geography.
+
 ## Table of Contents
 1. [Hypothesis](#1-hypothesis)
 2. [Motivation](#2-motivation)
