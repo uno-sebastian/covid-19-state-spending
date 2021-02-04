@@ -5,7 +5,7 @@ With the vast influx of data over the Covid-19, our team will try and analyze th
 
 What data do we want to compare?
 
-There is a ton of the USA to cover, so we think the best way to find insights, would be to compare states. Following this, we are comparing states alongside GDP, population, and geography.
+There is a lot of the USA to cover, so we think the best way to find insights, would be to compare states. Following this, we are comparing states alongside GDP, population, and geography.
 
 ## Table of Contents
 1. [Hypothesis](#1-hypothesis)
