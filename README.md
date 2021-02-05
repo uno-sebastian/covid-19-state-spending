@@ -24,8 +24,8 @@ First dataset: Budget account balnces. going to need to merge with covid frame t
     - Outlay vs. Obligation
     -- Outlay is when fundas are actually spent
     -- Obligation is a promise to pay 
-    --- Outlays only in buget data. 
+    --- Outlays should be the main focus for analysis
 
-Second dataset: The meat and potatoes, who gets what. the transaction records. This is where covid data is pulled from and gives us some geographic location. A creation of a reference file could match places to lat and long. Maybe there is a way to use google api? 
+Second dataset: The meat and potatoes, the who gets what, the transaction records. This is where covid data is pulled from and gives us some geographic location. A creation of a reference file could match places to lat and long. Maybe there is a way to use google api? 
 
 Third dataset: Gives counts of how many times they had to promise money to each account? May have to dig deeper on this one. 
