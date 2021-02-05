@@ -28,8 +28,5 @@ def get_covid_data(input):
     # in this dataset, the data to extract is under 'features'
     covidtracking_df = pd.json_normalize(data)
 
-    # export dataframe to a csv file
-    covidtracking_df.to_csv (r'covidtracking_dataframe.csv', index = False, header=True)
-
     # send off the data to whomever called me!
     return covidtracking_df
