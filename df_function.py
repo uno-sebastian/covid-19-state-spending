@@ -11,7 +11,7 @@ __author__ = 'Mark Chua'
 __credits__ = ['Mark Chua']
 __version__ = '1.0.0'
 __maintainer__ = 'Mark Chua'
-__email__ = 'email@here.com'
+__email__ = 'mchua004@gmail.com'
 __status__ = 'Development'
 
 # return the covid data as a pandas dataframe
