@@ -24,3 +24,5 @@ A year into the Covid-19 pandemic and our team is exhausted. The risk is ever im
 ## 3 References
 
 1. [*"USA Spending.gov"*](https://www.usaspending.gov/) USA Spending is the official open data source of federal spending information.
+2. [*"The COVID Tracking Project"*](https://covidtracking.com/) The COVID Tracking Project collects and publishes the most complete data about COVID-19 in the US..
+3. [*"COVID Money Tracker."*](https://www.covidmoneytracker.org/) Explore the data and track the trillions of dollars of federal spending, tax cuts, loans, grants, and subsidies authorized and disbursed in the wake of the coronavirus pandemic and economic crisis.
