@@ -106,10 +106,17 @@ crfb_headers = [
     'Agency'
 ]
 
-# clean the raw crfb data by removing nulls in ['Date', 
-# 'Amount Committed/Disbursed', 'Recipient State'] and
-# spliting the multi states values amongst the 'Amount Committed/Disbursed'
 def clean_raw_crfb_data(raw_data, exclude_states):
+    """
+    clean the raw crfb data by removing nulls in ['Date', 
+    'Amount Committed/Disbursed', 'Recipient State'] and
+    spliting the multi states values amongst the 'Amount Committed/Disbursed'    
+    
+    Parameters
+    ----------
+        raw_data — RAW data from either csv or xlsx
+        exclude_states — Exclude any state outside the common 50 known
+    """
     data = pd.DataFrame(raw_data[crfb_headers])
     # drop null values for 'Date', 'Amount Committed/Disbursed', 'Recipient State'
     data.dropna(subset=['Date', 'Amount Committed/Disbursed', 'Recipient State'], inplace=True)
