@@ -3,6 +3,7 @@ import json
 import ipywidgets as widgets
 import time
 import pandas as pd
+import re
 
 out = widgets.Output(layout={'border': '1px solid black'})
 
@@ -79,6 +80,10 @@ valid_states = [
     'Wyoming',
 ]
 
+spell_check = {
+    'Pennsylvannia' : 'Pennsylvania'
+}
+
 crfb_headers = [
     'Recipient State',
     'Amount Committed/Disbursed',
@@ -92,17 +97,23 @@ crfb_headers = [
 def get_multi_values_indexs(column):
     mulit_values = []
     for index, value in column.items():
-        if ';' in str(value):
+        if ';' in re.sub('[^A-Za-z0-9;]+', '', value):
             mulit_values.append(index)
     return mulit_values
 
 def split_mulit_states(compressed_data, exclude_states):
     uncompressed = pd.DataFrame()
     for index, row in compressed_data.iterrows():
-        split_names = fr'{row["Recipient State"]}'.split(';')
+        raw_string = re.sub('[^A-Za-z0-9;]+', '', row["Recipient State"])
+        split_names = raw_string.split(';')
         row['Amount Committed/Disbursed'] = row['Amount Committed/Disbursed'] / len(split_names)
         for state_name in split_names:
+            if 'Pennsylvania\n(less Philadelphia)' == state_name:
+                print('found '+ state_name)
+            if r'Pennsylvania\n(less Philadelphia)' == '%r'%state_name:
+                print('found % '+ '%r'%state_name)
             if exclude_states and state_name not in valid_states:
+                #print(f'throw out {state_name}')
                 continue
             new_row = pd.DataFrame([row])
             new_row['Recipient State'] = state_name
@@ -124,8 +135,16 @@ def clean_raw_crfb_data(raw_data, exclude_states):
     # drop null values for 'Date', 'Amount Committed/Disbursed', 'Recipient State'
     data.dropna(subset=['Date', 'Amount Committed/Disbursed', 'Recipient State'], inplace=True)
     data.reset_index(drop=True, inplace=True)
+    # drop weird values
+    data.replace('\n',' ', regex=True, inplace=True)
+    data.replace('\b','', regex=True, inplace=True)
+    data.replace('\r',' ', regex=True, inplace=True)
+    # fix spelling
+    data['Recipient State'].map(spell_check).fillna(data['Recipient State'])
     # format money
     data['Amount Committed/Disbursed'] = data['Amount Committed/Disbursed'].replace('[\$,]', '', regex=True).astype(float)
+    # remove 0.0 data
+    data = data[data['Amount Committed/Disbursed'] != 0]
     # format date
     data['Date']= pd.to_datetime(data['Date'], format='%m/%d/%Y')
     # find and seperate multi states
@@ -136,7 +155,12 @@ def clean_raw_crfb_data(raw_data, exclude_states):
         data.reset_index(drop=True, inplace=True)
         if states.shape[0] > 0:
             data = pd.concat([data, states])
-    return data.reset_index(drop=True)
+            data.reset_index(drop=True)
+    # remove states not in
+    if exclude_states:
+        data = data[data['Recipient State'].isin(valid_states)]
+        data.reset_index(drop=True, inplace=True)
+    return data
 
 def get_data_date(date, exclude_states=True):
     """
