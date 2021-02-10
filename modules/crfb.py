@@ -108,12 +108,7 @@ def split_mulit_states(compressed_data, exclude_states):
         split_names = raw_string.split(';')
         row['Amount Committed/Disbursed'] = row['Amount Committed/Disbursed'] / len(split_names)
         for state_name in split_names:
-            if 'Pennsylvania\n(less Philadelphia)' == state_name:
-                print('found '+ state_name)
-            if r'Pennsylvania\n(less Philadelphia)' == '%r'%state_name:
-                print('found % '+ '%r'%state_name)
             if exclude_states and state_name not in valid_states:
-                #print(f'throw out {state_name}')
                 continue
             new_row = pd.DataFrame([row])
             new_row['Recipient State'] = state_name
@@ -144,7 +139,7 @@ def clean_raw_crfb_data(raw_data, exclude_states):
     # format money
     data['Amount Committed/Disbursed'] = data['Amount Committed/Disbursed'].replace('[\$,]', '', regex=True).astype(float)
     # remove 0.0 data
-    data = data[data['Amount Committed/Disbursed'] != 0]
+    data = data[data['Amount Committed/Disbursed'] != 0.]
     # format date
     data['Date']= pd.to_datetime(data['Date'], format='%m/%d/%Y')
     # find and seperate multi states
