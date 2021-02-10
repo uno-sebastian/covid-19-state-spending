@@ -149,4 +149,4 @@ def get_data(date_min=None, date_max=None):
     for index, row in raw_data.iterrows():
         raw_data.at[index, 'state'] = abbrev_us_state[row['state']]
     # send off with headers and 
-    return raw_data[covid_headers + [positiveTests]].dropna()
+    return raw_data[covid_headers + [positiveTests]].fillna(0.)
