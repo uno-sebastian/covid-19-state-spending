@@ -5,7 +5,11 @@
 To use the crfb module, use this for your jupyter notebook
 ```python
 from modules import crfb
-df = crfb.get_data()
+
+# Get the most recent dataset that we have on file
+df = crfb.get_data_single()
+# Download all the datasets we have, using the column 'Date CRFB Downloaded'
+df = crfb.get_data_all()
 ```
 
 # Overview
