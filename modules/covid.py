@@ -62,6 +62,60 @@ extra_positive_headers = [
     'positiveTestsAntigen'
 ]
 
+valid_states = [
+    'Alabama',
+    'Alaska',
+    'Arizona',
+    'Arkansas',
+    'California',
+    'Colorado',
+    'Connecticut',
+    'Delaware',
+    'Florida',
+    'Georgia',
+    'Hawaii',
+    'Idaho',
+    'Illinois',
+    'Indiana',
+    'Iowa',
+    'Kansas',
+    'Kentucky',
+    'Louisiana',
+    'Maine',
+    'Maryland',
+    'Massachusetts',
+    'Michigan',
+    'Minnesota',
+    'Mississippi',
+    'Missouri',
+    'Montana',
+    'Nebraska',
+    'Nevada',
+    'New Hampshire',
+    'New Jersey',
+    'New Mexico',
+    'New York',
+    'North Carolina',
+    'North Dakota',
+    'Ohio',
+    'Oklahoma',
+    'Oregon',
+    'Pennsylvania',
+    'Pennsylvannia',
+    'Rhode Island',
+    'South Carolina',
+    'South Dakota',
+    'Tennessee',
+    'Texas',
+    'Utah',
+    'Vermont',
+    'Virginia',
+    'Washington',
+    'West Virginia',
+    'Wisconsin',
+    'Wyoming',
+]
+
 us_state_abbrev = {
     'Alabama': 'AL',
     'Alaska': 'AK',
@@ -121,7 +175,7 @@ us_state_abbrev = {
     'Wyoming': 'WY'
 }
 
-def get_data(date_min=None, date_max=None):
+def get_data(date_min=None, date_max=None, exclude_states=True):
     '''
     '''
     raw_data = pd.DataFrame()    
@@ -148,5 +202,9 @@ def get_data(date_min=None, date_max=None):
     # convert states
     for index, row in raw_data.iterrows():
         raw_data.at[index, 'state'] = abbrev_us_state[row['state']]
+    # remove excluded states
+    if exclude_states:
+        raw_data = raw_data[raw_data['state'].isin(valid_states)]
+        raw_data.reset_index(drop=True, inplace=True) 
     # send off with headers and 
     return raw_data[covid_headers + [positiveTests]].fillna(0.)
