@@ -12,6 +12,17 @@ df = crfb.get_data_single()
 df = crfb.get_data_all()
 ```
 
+To use the covid module, use this for your jupyter notebook
+```python
+from modules import covid
+import datetime as dt
+
+# To filter by date use
+df = covid.get_data(date_min=dt.datetime(2020, 10, 23), date_max=dt.datetime(2021, 2, 9))
+# else, use this
+df = covid.get_data()
+```
+
 # Overview
 With the vast influx of data over the Covid-19, our team will try and analyze the data to find trends related to the financial support and the Covid-19 rates. We plan to test our hypothesis using publicly available datasets, the scope of this project is within the USA. This will give the team members the opportunity to scrape website data, merge datasets together, and construct meaningful insights from the data.
 
