@@ -1,31 +1,51 @@
-# Control-Alt-Elite
+# Covid-19 Spending Analysis
 
-## Dataset
+# Code Notes
 
-Found dataset at https://www.usaspending.gov/download_center/custom_account_data
+To use the crfb module, use this for your jupyter notebook
+```python
+from modules import crfb
 
-Used COVID's Disaster Fund Emergency codes in the filters to get all records from the Health budget. 
+# Get the most recent dataset that we have on file
+df = crfb.get_data_single()
+# Download all the datasets we have, using the column 'Date CRFB Downloaded'
+df = crfb.get_data_all()
+```
 
-Printed out dataframes in jupyter notebook. Time for cleaning!
+To use the covid module, use this for your jupyter notebook
+```python
+from modules import covid
+import datetime as dt
 
-Added covid_frame with "national_interest_action" == "COVID 19 2020"
+# To filter by date use
+df = covid.get_data(date_min=dt.datetime(2020, 10, 23), date_max=dt.datetime(2021, 2, 9))
+# else, use this
+df = covid.get_data()
+```
 
----------------------------------------------------------------------------------------------
+# Overview
+With the vast influx of data over the Covid-19, our team will try and analyze the data to find trends related to the financial support and the Covid-19 rates. We plan to test our hypothesis using publicly available datasets, the scope of this project is within the USA. This will give the team members the opportunity to scrape website data, merge datasets together, and construct meaningful insights from the data.
 
-## Dataset Summaries
+What data do we want to compare?
 
-First dataset: Budget account balnces. going to need to merge with covid frame to get prices amount spent. I have some research about how the data works.
+There is a lot of the USA to cover, so we think the best way to find insights, would be to compare states. Following this, we are comparing states alongside GDP, population, and geography.
 
-    - Contract vs. Grant 
-    -- Grants are a form of financial assistance
-    -- Contracts are for when the government needs to purchase something big at a certain time.  
-    --- LOOKING FOR GRANTS ONLY 
+## Table of Contents
+1. [Hypothesis](#1-hypothesis)
+2. [Motivation](#2-motivation)
+3. [References](#3-references)
 
-    - Outlay vs. Obligation
-    -- Outlay is when fundas are actually spent
-    -- Obligation is a promise to pay 
-    --- Outlays should be the main focus for analysis
+## 1 Hypothesis
+1. There is a correlation between the Covid-19 patients and financial incentives.
+2. There is a negative correlation between spending and Covid-19 deaths.
 
-Second dataset: The meat and potatoes, the who gets what, the transaction records. This is where covid data is pulled from and gives us some geographic location. A creation of a reference file could match places to lat and long. Maybe there is a way to use google api? 
+We believe that there must be a link between the financial incentives of the hospitals and the reporting of data. The main point for our observation will be the effectiveness of hospitals in regards to their funding. Obviously there are positives to funding the hospitals, we suspect the data will show the same; but we hope we can bring to light new insights!
 
-Third dataset: Gives counts of how many times they had to promise money to each account? May have to dig deeper on this one. 
+## 2 Motivation
+A year into the Covid-19 pandemic and our team is exhausted. The risk is ever important, but the pandemic has started to shift our personal perceptions in away from reality of the current situation. Following in the footsteps of data scientists before us, we want to analyze Covid-19 and it's effects by studying the investments made to combat the virus. We believe re-evaluating the data can help bring new insights onto Covid-19 trends.
+
+## 3 References
+
+1. [*"USA Spending.gov"*](https://www.usaspending.gov/) USA Spending is the official open data source of federal spending information.
+2. [*"The COVID Tracking Project"*](https://covidtracking.com/) The COVID Tracking Project collects and publishes the most complete data about COVID-19 in the US..
+3. [*"COVID Money Tracker."*](https://www.covidmoneytracker.org/) Explore the data and track the trillions of dollars of federal spending, tax cuts, loans, grants, and subsidies authorized and disbursed in the wake of the coronavirus pandemic and economic crisis.
