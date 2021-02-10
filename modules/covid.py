@@ -1,9 +1,47 @@
+# to handle  data retrieval
+import requests
+# to handle certificate verification
+import certifi
+# to manage json data
 import json
+# for pandas dataframes
 import pandas as pd
 import datetime as dt
-import json
 import ipywidgets as widgets
-import df_function
+import os
+
+__author__ = 'Mark Chua'
+__credits__ = ['Mark Chua', 'Sebastian Echeverry']
+__version__ = '1.0.0'
+__maintainer__ = 'Mark Chua'
+__email__ = 'mchua004@gmail.com'
+__status__ = 'Development'
+
+output_file = 'covid_data/data.csv'
+
+# return the covid data as a pandas dataframe
+def get_covid_data():
+    # URL for GET requests to retrieve vehicle data
+    url = 'https://covidtracking.com/api/states/daily'
+
+    # Perform a get request for this character
+    response = requests.get(url)
+
+    # Storing the JSON response within a variable
+    data = response.json()
+
+    # in this dataset, the data to extract is under 'features'
+    covidtracking_df = pd.json_normalize(data)
+
+    # export dataframe to a csv file
+    data_path = os.path.dirname(os.path.realpath(__file__))
+    data_path = os.path.join(data_path, output_file)
+    covidtracking_df.to_csv(data_path, index = False, header=True)
+
+    # send off the data to whomever called me!
+    return covidtracking_df
+
+
 
 covid_headers = [
     'date',
@@ -87,10 +125,12 @@ def get_data(date_min=None, date_max=None):
     '''
     '''
     raw_data = pd.DataFrame()    
-    try: raw_data = df_function.get_covid_data()
+    try: raw_data = get_covid_data()
     except:
         print(f'\tERROR loading data from file at {output_file}')
-        raw_data = pd.read_csv(output_file)
+        data_path = os.path.dirname(os.path.realpath(__file__))
+        data_path = os.path.join(data_path, output_file)
+        raw_data = pd.read_csv(data_path)
     raw_data['date'] = pd.to_datetime(raw_data['date'], format='%Y%m%d')
     # filter with date min
     if date_min:
