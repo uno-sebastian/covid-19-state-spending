@@ -1,5 +1,4 @@
-# Virus Ganna Virus
-#### Covid-19 Spending Analysis
+# Covid-19 Spending Analysis
 
 # Code Notes
 
