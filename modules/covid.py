@@ -11,7 +11,7 @@ import ipywidgets as widgets
 import os
 
 __author__ = 'Mark Chua'
-__credits__ = ['Mark Chua', 'Sebastian Echeverry']
+__credits__ = ['Mark Chua', 'Sebastian Echeverry', 'Giada Innocenti']
 __version__ = '1.0.0'
 __maintainer__ = 'Mark Chua'
 __email__ = 'mchua004@gmail.com'
@@ -167,7 +167,7 @@ us_state_abbrev = {
     'Texas': 'TX',
     'Utah': 'UT',
     'Vermont': 'VT',
-    'Virgin Islands': 'VI',
+    'US Virgin Islands': 'VI',
     'Virginia': 'VA',
     'Washington': 'WA',
     'West Virginia': 'WV',
@@ -194,7 +194,7 @@ def get_data(date_min=None, date_max=None, exclude_states=True):
         raw_data = raw_data[raw_data['date'] <= date_max]
     # add positiveTests
     positiveTests = 'positiveTests'
-    raw_data[positiveTests] = pd.Series([0 for i in range(raw_data.shape[0])])
+    raw_data[positiveTests] = pd.Series([0 for i in range(raw_data.shape[0])])   
     for index, row in raw_data.iterrows():
         posTests = row[extra_positive_headers].sum()
         raw_data.at[index, positiveTests] = posTests
